@@ -17,13 +17,3 @@ sshpass -e scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r ${
 # Update the RPM repository
 export DEPLOY_CMD="createrepo ${DEPLOY_PATH}/"
 sshpass -e ssh  -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST $DEPLOY_CMD
-
-# The existence of GITHUB_TOKEN variable is the switch for Github release
-if [[ -n $GITHUB_TOKEN ]]; then
-	# Get the directory of current .sh script
-	SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-	pushd ${SCRIPT_DIR}/github
-	# This script is expected to be executed from its folder
-	./release-to-github.sh
-	popd
-fi
