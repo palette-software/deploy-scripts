@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 set -e
 
   # Upload the RPM to the RPM repository
