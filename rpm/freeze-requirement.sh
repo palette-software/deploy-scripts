@@ -36,4 +36,7 @@ for PACKAGE_NAME in ${REQUIRED_PACKAGES}; do
     # into
     #   Requires: palette-insight-agent = 2.0.11
     sed -i "s/Requires: ${PACKAGE_NAME}/Requires: ${PACKAGE_NAME} = ${LATEST_VERSION}/g" ${TARGET_SPEC_FILE}
-done 
+done
+
+# Show the contents of the spec file after editing it
+cat ${TARGET_SPEC_FILE}
