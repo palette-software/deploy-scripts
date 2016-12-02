@@ -1,14 +1,14 @@
 #!/bin/bash
 
-if [ "Xmaster" != "X$TRAVIS_BRANCH" ]; then echo "Current branch is $TRAVIS_BRANCH. We are deploying only from the master branch"; exit 0; fi
-if [ "X" != "X$TRAVIS_TAG" ]; then echo "Tags are auto-committed by deploys, so this is already a result of a deploy. Skip deploy this time."; exit 0; fi
-if [ "X" == "X$GITHUB_TOKEN" ]; then echo "GITHUB_TOKEN environment variable is not set!"; exit 10; fi
-if [ "X" == "X$HOME" ]; then echo "HOME environment variable is not set!"; exit 10; fi
+if [[ "master" != $TRAVIS_BRANCH ]]; then echo "Current branch is $TRAVIS_BRANCH. We are deploying only from the master branch"; exit 0; fi
+if [[ -n $TRAVIS_TAG ]]; then echo "Tags are auto-committed by deploys, so this is already a result of a deploy. Skip deploy this time."; exit 0; fi
+if [ -z $GITHUB_TOKEN ]; then echo "GITHUB_TOKEN environment variable is not set!"; exit 10; fi
+if [ -z $HOME ]; then echo "HOME environment variable is not set!"; exit 10; fi
 
 # These package are required for our "github-release-upload.py" script
-pip install --upgrade pip
-pip install requests
-pip install urllib3
+sudo -H pip install --upgrade pip
+sudo -H pip install requests
+sudo -H pip install urllib3
 
 echo "Creating Github realase..."
 export RELEASE_ID=`python github-release-upload.py`
